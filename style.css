@@ -1054,3 +1054,374 @@ img {
   }
 
 }
+/* =========================================================
+   CTS — INTERACTIVE PORTFOLIO SYSTEM
+   ========================================================= */
+
+
+/* ---------- CASE STUDY INTERACTION ---------- */
+
+.case-section {
+  position: relative;
+  transition:
+    transform 0.6s cubic-bezier(.2,.8,.2,1),
+    opacity 0.6s ease,
+    background 0.5s ease,
+    border-color 0.5s ease;
+}
+
+.case-interactive .case-copy {
+  cursor: pointer;
+  position: relative;
+}
+
+.case-interactive .case-copy::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(21,22,20,.18);
+  border-radius: 50%;
+
+  font-size: 22px;
+  font-weight: 300;
+
+  transition:
+    transform .45s cubic-bezier(.2,.8,.2,1),
+    background .35s ease,
+    color .35s ease;
+}
+
+.case-interactive:hover .case-copy::after {
+  background: #151614;
+  color: #f1efe7;
+}
+
+.case-interactive.is-open .case-copy::after {
+  transform: rotate(45deg);
+}
+
+
+/* ---------- OPEN STATE ---------- */
+
+.case-interactive {
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.case-interactive.is-open {
+  background:
+    rgba(255,255,255,.38);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  box-shadow:
+    0 24px 70px rgba(20,24,20,.08);
+
+  border-color:
+    rgba(89,99,75,.25);
+}
+
+
+/* ---------- CONTENT REVEAL ---------- */
+
+.case-section ul,
+.case-section .project-gallery,
+.case-section .gallery {
+  transition:
+    opacity .55s ease,
+    transform .65s cubic-bezier(.2,.8,.2,1),
+    filter .55s ease;
+}
+
+.case-interactive:not(.is-open) ul,
+.case-interactive:not(.is-open) .project-gallery,
+.case-interactive:not(.is-open) .gallery {
+  opacity: .34;
+  transform: translateY(8px);
+  filter: blur(1.8px);
+}
+
+.case-interactive.is-open ul,
+.case-interactive.is-open .project-gallery,
+.case-interactive.is-open .gallery {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+
+/* ---------- IMAGE BEHAVIOUR ---------- */
+
+.portfolio-image {
+  cursor: zoom-in;
+
+  transition:
+    transform .7s cubic-bezier(.2,.8,.2,1),
+    filter .6s ease,
+    opacity .5s ease;
+
+  will-change: transform;
+}
+
+.portfolio-image:hover {
+  transform: scale(1.012);
+  filter: brightness(.94);
+}
+
+
+/* ---------- LIGHTBOX ---------- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: clamp(20px,4vw,70px);
+
+  background:
+    rgba(15,17,14,.72);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    opacity .45s ease,
+    visibility .45s ease;
+}
+
+.lightbox.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-stage {
+  position: relative;
+
+  width: min(1200px,84vw);
+  height: min(820px,82vh);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-image {
+  max-width: 100%;
+  max-height: 100%;
+
+  object-fit: contain;
+
+  box-shadow:
+    0 30px 90px rgba(0,0,0,.25);
+
+  transition:
+    opacity .25s ease,
+    transform .5s cubic-bezier(.2,.8,.2,1);
+}
+
+.lightbox.is-active .lightbox-image {
+  transform: scale(1);
+}
+
+
+/* ---------- LIGHTBOX CONTROLS ---------- */
+
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+
+  z-index: 3;
+
+  border: 0;
+  background: transparent;
+
+  color: #f5f3eb;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  transition:
+    opacity .25s ease,
+    transform .25s ease;
+}
+
+.lightbox-close:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  opacity: .55;
+}
+
+.lightbox-close {
+  top: 30px;
+  right: 38px;
+
+  font-size: 40px;
+  font-weight: 200;
+}
+
+.lightbox-prev {
+  left: 35px;
+
+  font-size: 34px;
+}
+
+.lightbox-next {
+  right: 35px;
+
+  font-size: 34px;
+}
+
+.lightbox-counter {
+  position: absolute;
+
+  bottom: -34px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  color:
+    rgba(255,255,255,.68);
+
+  font-size: 11px;
+  letter-spacing: .16em;
+}
+
+
+/* ---------- BODY WHEN LIGHTBOX OPEN ---------- */
+
+body.lightbox-open {
+  overflow: hidden;
+}
+
+
+/* ---------- SCROLL REVEAL ---------- */
+
+.reveal-item {
+  opacity: 0;
+
+  transform:
+    translateY(28px);
+
+  filter:
+    blur(5px);
+
+  transition:
+    opacity .85s ease,
+    transform .9s cubic-bezier(.2,.8,.2,1),
+    filter .9s ease;
+}
+
+.reveal-item.is-visible {
+  opacity: 1;
+
+  transform:
+    translateY(0);
+
+  filter:
+    blur(0);
+}
+
+
+/* ---------- HEADER GLASS ---------- */
+
+.site-header {
+  transition:
+    background .4s ease,
+    backdrop-filter .4s ease,
+    border-color .4s ease;
+}
+
+.site-header.is-scrolled {
+  background:
+    rgba(241,239,231,.72);
+
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
+
+  border-bottom:
+    1px solid rgba(21,22,20,.10);
+}
+
+
+/* ---------- FOCUS ---------- */
+
+.case-copy:focus-visible {
+  outline:
+    1px solid rgba(89,99,75,.6);
+
+  outline-offset:
+    10px;
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 760px) {
+
+  .case-interactive .case-copy::after {
+    width: 34px;
+    height: 34px;
+
+    font-size: 18px;
+  }
+
+  .lightbox {
+    padding: 18px;
+  }
+
+  .lightbox-stage {
+    width: 100%;
+    height: 78vh;
+  }
+
+  .lightbox-prev {
+    left: 14px;
+  }
+
+  .lightbox-next {
+    right: 14px;
+  }
+
+  .lightbox-close {
+    top: 18px;
+    right: 20px;
+  }
+
+}
+
+
+/* ---------- REDUCED MOTION ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+
+}
