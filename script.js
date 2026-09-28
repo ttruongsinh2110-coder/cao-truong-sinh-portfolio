@@ -1,105 +1,303 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ========================================
-     01. CASE STUDY INTERACTIONS
-  ======================================== */
+  /* =========================================================
+     01 — CAPABILITIES ACCORDION
+  ========================================================= */
 
-  const caseSections = document.querySelectorAll(".case-section");
+  const capabilityItems =
+    document.querySelectorAll(".capability-item");
 
-  caseSections.forEach((section) => {
+  capabilityItems.forEach((item) => {
 
-    const copy = section.querySelector(".case-copy");
-    if (!copy) return;
+    const trigger =
+      item.querySelector(".capability-trigger");
 
-    section.classList.add("case-interactive");
+    if (!trigger) return;
 
-    copy.setAttribute("role", "button");
-    copy.setAttribute("tabindex", "0");
+    trigger.addEventListener("click", () => {
 
-    const toggleCase = () => {
+      const wasOpen =
+        item.classList.contains("is-open");
 
-      const isActive = section.classList.contains("is-open");
+      capabilityItems.forEach((otherItem) => {
 
-      // Close other sections
-      caseSections.forEach((item) => {
-        if (item !== section) {
-          item.classList.remove("is-open");
+        otherItem.classList.remove("is-open");
+
+        const otherTrigger =
+          otherItem.querySelector(".capability-trigger");
+
+        if (otherTrigger) {
+          otherTrigger.setAttribute(
+            "aria-expanded",
+            "false"
+          );
         }
+
       });
 
-      section.classList.toggle("is-open", !isActive);
+      if (!wasOpen) {
 
-      if (!isActive) {
-        setTimeout(() => {
-          section.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
-        }, 200);
+        item.classList.add("is-open");
+
+        trigger.setAttribute(
+          "aria-expanded",
+          "true"
+        );
+
       }
 
-    };
-
-    copy.addEventListener("click", toggleCase);
-
-    copy.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        toggleCase();
-      }
     });
 
   });
 
 
-  /* ========================================
-     02. IMAGE LIGHTBOX
-  ======================================== */
+  /* =========================================================
+     02 — PREPARE PROJECT CONTENT
+     Wrap project-content children inside project-inner
+     so CSS dropdown animation works properly.
+  ========================================================= */
 
-  const portfolioImages = document.querySelectorAll(
-    ".case-section img, .project-gallery img, .gallery img"
-  );
+  const projects =
+    document.querySelectorAll(".project");
 
-  if (portfolioImages.length > 0) {
+  projects.forEach((project) => {
 
-    const lightbox = document.createElement("div");
+    const content =
+      project.querySelector(".project-content");
+
+    if (!content) return;
+
+    if (!content.querySelector(":scope > .project-inner")) {
+
+      const inner =
+        document.createElement("div");
+
+      inner.className = "project-inner";
+
+      while (content.firstChild) {
+        inner.appendChild(content.firstChild);
+      }
+
+      content.appendChild(inner);
+
+    }
+
+  });
+
+
+  /* =========================================================
+     03 — PROJECT OPEN / CLOSE
+  ========================================================= */
+
+  function closeProject(project) {
+
+    if (!project) return;
+
+    project.classList.remove("is-open");
+
+    const trigger =
+      project.querySelector(".project-trigger");
+
+    if (trigger) {
+
+      trigger.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+    }
+
+  }
+
+
+  function openProject(project) {
+
+    if (!project) return;
+
+    projects.forEach((otherProject) => {
+
+      if (otherProject !== project) {
+        closeProject(otherProject);
+      }
+
+    });
+
+    project.classList.add("is-open");
+
+    const trigger =
+      project.querySelector(".project-trigger");
+
+    if (trigger) {
+
+      trigger.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+
+    }
+
+  }
+
+
+  projects.forEach((project) => {
+
+    const trigger =
+      project.querySelector(".project-trigger");
+
+    const closeButton =
+      project.querySelector(".project-close");
+
+    if (trigger) {
+
+      trigger.addEventListener("click", () => {
+
+        const wasOpen =
+          project.classList.contains("is-open");
+
+        if (wasOpen) {
+
+          closeProject(project);
+
+        } else {
+
+          openProject(project);
+
+          setTimeout(() => {
+
+            project.scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
+
+          }, 250);
+
+        }
+
+      });
+
+    }
+
+
+    if (closeButton) {
+
+      closeButton.addEventListener(
+        "click",
+        () => {
+
+          closeProject(project);
+
+          setTimeout(() => {
+
+            project.scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
+
+          }, 100);
+
+        }
+      );
+
+    }
+
+  });
+
+
+  /* =========================================================
+     04 — LIGHTBOX
+  ========================================================= */
+
+  const galleryImages =
+    Array.from(
+      document.querySelectorAll(
+        ".project-gallery img"
+      )
+    );
+
+
+  if (galleryImages.length) {
+
+    const lightbox =
+      document.createElement("div");
+
     lightbox.className = "lightbox";
 
+    lightbox.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+
     lightbox.innerHTML = `
-      <button class="lightbox-close" aria-label="Close image">
+
+      <button
+        class="lightbox-close"
+        type="button"
+        aria-label="Close image"
+      >
         ×
       </button>
 
-      <button class="lightbox-prev" aria-label="Previous image">
+      <button
+        class="lightbox-prev"
+        type="button"
+        aria-label="Previous image"
+      >
         ←
       </button>
 
       <div class="lightbox-stage">
-        <img class="lightbox-image" src="" alt="">
-        <div class="lightbox-counter"></div>
+
+        <img
+          class="lightbox-image"
+          src=""
+          alt=""
+        >
+
+        <div class="lightbox-counter">
+        </div>
+
       </div>
 
-      <button class="lightbox-next" aria-label="Next image">
+      <button
+        class="lightbox-next"
+        type="button"
+        aria-label="Next image"
+      >
         →
       </button>
+
     `;
+
 
     document.body.appendChild(lightbox);
 
+
     const lightboxImage =
-      lightbox.querySelector(".lightbox-image");
+      lightbox.querySelector(
+        ".lightbox-image"
+      );
 
     const counter =
-      lightbox.querySelector(".lightbox-counter");
+      lightbox.querySelector(
+        ".lightbox-counter"
+      );
 
     const closeButton =
-      lightbox.querySelector(".lightbox-close");
+      lightbox.querySelector(
+        ".lightbox-close"
+      );
 
     const prevButton =
-      lightbox.querySelector(".lightbox-prev");
+      lightbox.querySelector(
+        ".lightbox-prev"
+      );
 
     const nextButton =
-      lightbox.querySelector(".lightbox-next");
+      lightbox.querySelector(
+        ".lightbox-next"
+      );
+
 
     let activeImages = [];
     let currentIndex = 0;
@@ -109,73 +307,110 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!activeImages.length) return;
 
-      const image = activeImages[currentIndex];
+      const image =
+        activeImages[currentIndex];
 
       lightboxImage.style.opacity = "0";
+      lightboxImage.style.transform =
+        "scale(.985)";
 
-      setTimeout(() => {
 
-        lightboxImage.src = image.src;
-        lightboxImage.alt = image.alt || "Portfolio work";
+      window.setTimeout(() => {
+
+        lightboxImage.src =
+          image.getAttribute("src");
+
+        lightboxImage.alt =
+          image.getAttribute("alt") ||
+          "Portfolio image";
 
         counter.textContent =
           `${String(currentIndex + 1).padStart(2, "0")} / ${String(activeImages.length).padStart(2, "0")}`;
 
         lightboxImage.style.opacity = "1";
+        lightboxImage.style.transform =
+          "scale(1)";
 
       }, 120);
 
     }
 
 
-    function openLightbox(image) {
+    function openLightbox(clickedImage) {
 
-      const section =
-        image.closest(".case-section") ||
-        image.closest(".project-gallery") ||
-        image.closest(".gallery");
+      const gallery =
+        clickedImage.closest(
+          ".project-gallery"
+        );
 
-      if (section) {
+      if (gallery) {
 
         activeImages =
-          Array.from(section.querySelectorAll("img"));
+          Array.from(
+            gallery.querySelectorAll("img")
+          );
 
       } else {
 
         activeImages =
-          Array.from(portfolioImages);
+          galleryImages;
 
       }
 
+
       currentIndex =
-        activeImages.indexOf(image);
+        activeImages.indexOf(
+          clickedImage
+        );
 
       if (currentIndex < 0) {
         currentIndex = 0;
       }
 
+
       updateLightbox();
 
-      lightbox.classList.add("is-active");
+      lightbox.classList.add(
+        "is-active"
+      );
 
-      document.body.classList.add("lightbox-open");
+      lightbox.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.classList.add(
+        "lightbox-open"
+      );
 
     }
 
 
     function closeLightbox() {
 
-      lightbox.classList.remove("is-active");
+      lightbox.classList.remove(
+        "is-active"
+      );
 
-      document.body.classList.remove("lightbox-open");
+      lightbox.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      document.body.classList.remove(
+        "lightbox-open"
+      );
 
     }
 
 
     function nextImage() {
 
+      if (!activeImages.length) return;
+
       currentIndex =
-        (currentIndex + 1) % activeImages.length;
+        (currentIndex + 1)
+        % activeImages.length;
 
       updateLightbox();
 
@@ -184,8 +419,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function previousImage() {
 
+      if (!activeImages.length) return;
+
       currentIndex =
-        (currentIndex - 1 + activeImages.length)
+        (
+          currentIndex -
+          1 +
+          activeImages.length
+        )
         % activeImages.length;
 
       updateLightbox();
@@ -193,13 +434,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    portfolioImages.forEach((image) => {
+    galleryImages.forEach((image) => {
 
-      image.classList.add("portfolio-image");
+      image.addEventListener(
+        "click",
+        () => {
 
-      image.addEventListener("click", () => {
-        openLightbox(image);
-      });
+          openLightbox(image);
+
+        }
+      );
 
     });
 
@@ -209,10 +453,12 @@ document.addEventListener("DOMContentLoaded", () => {
       closeLightbox
     );
 
+
     nextButton.addEventListener(
       "click",
       nextImage
     );
+
 
     prevButton.addEventListener(
       "click",
@@ -236,17 +482,24 @@ document.addEventListener("DOMContentLoaded", () => {
       "keydown",
       (event) => {
 
-        if (!lightbox.classList.contains("is-active")) {
+        if (
+          !lightbox.classList.contains(
+            "is-active"
+          )
+        ) {
           return;
         }
+
 
         if (event.key === "Escape") {
           closeLightbox();
         }
 
+
         if (event.key === "ArrowRight") {
           nextImage();
         }
+
 
         if (event.key === "ArrowLeft") {
           previousImage();
@@ -258,122 +511,168 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  /* ========================================
-     03. SCROLL REVEAL
-  ======================================== */
+  /* =========================================================
+     05 — HEADER GLASS ON SCROLL
+  ========================================================= */
 
-  const revealItems =
-    document.querySelectorAll(
-      ".case-section, .capability-row, .project-meta"
+  const header =
+    document.querySelector(
+      ".site-header"
     );
 
-  const observer =
-    new IntersectionObserver(
 
-      (entries) => {
+  function updateHeader() {
 
-        entries.forEach((entry) => {
+    if (!header) return;
 
-          if (entry.isIntersecting) {
+    if (window.scrollY > 30) {
 
-            entry.target.classList.add(
-              "is-visible"
-            );
+      header.classList.add(
+        "is-scrolled"
+      );
 
-            observer.unobserve(
-              entry.target
-            );
+    } else {
 
-          }
+      header.classList.remove(
+        "is-scrolled"
+      );
 
+    }
+
+  }
+
+
+  updateHeader();
+
+
+  window.addEventListener(
+    "scroll",
+    updateHeader,
+    {
+      passive: true
+    }
+  );
+
+
+  /* =========================================================
+     06 — SMOOTH INTERNAL NAVIGATION
+  ========================================================= */
+
+  const internalLinks =
+    document.querySelectorAll(
+      'a[href^="#"]'
+    );
+
+
+  internalLinks.forEach((link) => {
+
+    link.addEventListener(
+      "click",
+      (event) => {
+
+        const targetID =
+          link.getAttribute("href");
+
+        if (
+          !targetID ||
+          targetID === "#"
+        ) {
+          return;
+        }
+
+
+        const target =
+          document.querySelector(
+            targetID
+          );
+
+        if (!target) return;
+
+
+        event.preventDefault();
+
+
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
         });
 
-      },
-
-      {
-        threshold: 0.12
       }
-
     );
-
-
-  revealItems.forEach((item) => {
-
-    item.classList.add("reveal-item");
-
-    observer.observe(item);
 
   });
 
 
-  /* ========================================
-     04. NAVIGATION
-  ======================================== */
+  /* =========================================================
+     07 — SUBTLE SCROLL REVEAL
+  ========================================================= */
 
-  document
-    .querySelectorAll('a[href^="#"]')
-    .forEach((link) => {
+  const revealTargets =
+    document.querySelectorAll(
+      ".section-label, .section-heading, .about-grid"
+    );
 
-      link.addEventListener(
-        "click",
-        (event) => {
 
-          const targetId =
-            link.getAttribute("href");
+  if (
+    "IntersectionObserver" in window
+  ) {
 
-          if (
-            !targetId ||
-            targetId === "#"
-          ) {
-            return;
-          }
+    const observer =
+      new IntersectionObserver(
 
-          const target =
-            document.querySelector(
-              targetId
-            );
+        (entries) => {
 
-          if (!target) return;
+          entries.forEach(
+            (entry) => {
 
-          event.preventDefault();
+              if (
+                entry.isIntersecting
+              ) {
 
-          target.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
+                entry.target.classList.add(
+                  "is-visible"
+                );
 
+                observer.unobserve(
+                  entry.target
+                );
+
+              }
+
+            }
+          );
+
+        },
+
+        {
+          threshold: .12
         }
+
       );
 
-    });
 
+    revealTargets.forEach(
+      (element) => {
 
-  /* ========================================
-     05. HEADER ON SCROLL
-  ======================================== */
+        element.classList.add(
+          "reveal-item"
+        );
 
-  const header =
-    document.querySelector(".site-header");
+        observer.observe(
+          element
+        );
 
-  if (header) {
+      }
+    );
 
-    window.addEventListener(
-      "scroll",
-      () => {
+  } else {
 
-        if (window.scrollY > 40) {
+    revealTargets.forEach(
+      (element) => {
 
-          header.classList.add(
-            "is-scrolled"
-          );
-
-        } else {
-
-          header.classList.remove(
-            "is-scrolled"
-          );
-
-        }
+        element.classList.add(
+          "is-visible"
+        );
 
       }
     );
