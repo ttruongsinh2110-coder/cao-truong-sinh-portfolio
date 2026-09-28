@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,7 @@
 
   <meta
     name="description"
-    content="Portfolio of Cao Truong Sinh — Marketing Creative, Visual Designer and Content Creator."
+    content="Portfolio of Cao Truong Sinh — Marketing Creative, Photographer and Visual Storyteller based in Da Lat, Vietnam."
   >
 
   <link rel="stylesheet" href="style.css">
@@ -17,7 +16,8 @@
 
 <body>
 
-  <header>
+  <!-- NAVIGATION -->
+  <header class="site-header">
     <a href="#" class="logo">CTS.</a>
 
     <nav>
@@ -30,70 +30,258 @@
 
   <main>
 
+    <!-- HERO -->
     <section class="hero">
-      <p class="eyebrow">Marketing Creative · Da Lat, Vietnam</p>
 
-      <h1>
-        I BUILD BRANDS<br>
-        THROUGH VISUAL<br>
-        STORIES.
-      </h1>
+      <div class="hero-meta">
+        <span>MARKETING CREATIVE</span>
+        <span>DA LAT, VIETNAM</span>
+      </div>
 
-      <div class="hero-bottom">
+      <div class="hero-layout">
+
+        <div class="hero-copy">
+          <h1>
+            I BUILD BRANDS<br>
+            THROUGH VISUAL<br>
+            STORIES.
+          </h1>
+        </div>
+
+        <div class="hero-portrait">
+          <img
+            src="profile.jpg"
+            alt="Cao Truong Sinh"
+          >
+        </div>
+
+      </div>
+
+      <div class="hero-footer">
         <p>
-          Marketing · Visual Design · Photography · Content
+          Marketing · Visual Design · Photography · Video · Paid Media
         </p>
 
         <a href="#work">Selected Work ↓</a>
       </div>
+
     </section>
 
 
-    <section id="work" class="work">
+    <!-- SERVICES -->
+    <section class="services">
 
-      <div class="section-title">
-        <p>Selected Work</p>
-        <p>2025 — 2026</p>
+      <p class="section-label">WHAT I DO</p>
+
+      <div class="services-grid">
+
+        <p>Marketing Strategy</p>
+        <p>Social Media</p>
+        <p>Photography</p>
+        <p>Video Production</p>
+        <p>Visual Design</p>
+        <p>Paid Media</p>
+        <p>Campaign Creative</p>
+
       </div>
 
-      <article class="project">
-        <p>01</p>
-        <h2>Lavender Dalat</h2>
-        <p>Hospitality · Marketing · Creative Direction</p>
+    </section>
+
+
+    <!-- SELECTED WORK -->
+    <section id="work" class="work">
+
+      <div class="section-heading">
+        <span>SELECTED WORK</span>
+        <span>2025 — 2026</span>
+      </div>
+
+
+      <!-- LAVENDER -->
+      <article class="project" data-project="lavender">
+
+        <span class="project-number">01</span>
+
+        <div class="project-main">
+          <h2>Lavender Dalat</h2>
+
+          <p class="project-description">
+            Building a hospitality brand through integrated marketing,
+            visual communication and content production.
+          </p>
+        </div>
+
+        <div class="project-role">
+          <span>Hospitality</span>
+          <span>Marketing Strategy</span>
+          <span>Social Media</span>
+          <span>Photography</span>
+          <span>Video Production</span>
+          <span>Paid Media</span>
+        </div>
+
+        <span class="project-arrow">↗</span>
+
       </article>
 
-      <article class="project">
-        <p>02</p>
-        <h2>Meow Whey</h2>
-        <p>Branding · Social Media · Visual Design</p>
+
+      <!-- MEOW WHEY -->
+      <article class="project" data-project="meow">
+
+        <span class="project-number">02</span>
+
+        <div class="project-main">
+          <h2>Meow Whey</h2>
+
+          <p class="project-description">
+            Developing a young protein shake brand from identity
+            and positioning to social content and campaign creatives.
+          </p>
+        </div>
+
+        <div class="project-role">
+          <span>Branding</span>
+          <span>Social Media</span>
+          <span>Visual Design</span>
+          <span>Content</span>
+        </div>
+
+        <span class="project-arrow">↗</span>
+
       </article>
 
-      <article class="project">
-        <p>03</p>
-        <h2>Photography</h2>
-        <p>Portrait · Lifestyle · Hospitality</p>
+
+      <!-- PHOTOGRAPHY -->
+      <article class="project" data-project="photography">
+
+        <span class="project-number">03</span>
+
+        <div class="project-main">
+          <h2>Photography</h2>
+
+          <p class="project-description">
+            A selection of hospitality, lifestyle, portrait
+            and visual storytelling work.
+          </p>
+        </div>
+
+        <div class="project-role">
+          <span>Photography</span>
+          <span>Art Direction</span>
+          <span>Visual Storytelling</span>
+        </div>
+
+        <span class="project-arrow">↗</span>
+
       </article>
 
     </section>
 
 
+    <!-- ABOUT -->
     <section id="about" class="about">
-      <p>About</p>
+
+      <div class="about-intro">
+
+        <p class="section-label">ABOUT</p>
+
+        <h2>
+          I create visual experiences that help brands communicate
+          clearly, feel distinctive, and stay memorable.
+        </h2>
+
+      </div>
+
+
+      <div class="about-details">
+
+        <div class="about-photo">
+          <img
+            src="profile.jpg"
+            alt="Cao Truong Sinh"
+          >
+        </div>
+
+        <div class="about-copy">
+
+          <p>
+            I'm Cao Truong Sinh, a marketing creative based in
+            Da Lat, Vietnam.
+          </p>
+
+          <p>
+            My work sits between strategy and execution — from
+            developing campaigns and managing social media to
+            photography, video production, visual design and
+            paid media.
+          </p>
+
+          <p>
+            I approach creative work as more than decoration.
+            Every visual should have a reason to exist, communicate
+            something clearly, and contribute to how a brand is remembered.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+
+      <p class="section-label">CONTACT</p>
 
       <h2>
-        I create visual experiences that help brands communicate
-        clearly, feel distinctive, and stay memorable.
+        LET'S CREATE<br>
+        SOMETHING<br>
+        MEANINGFUL.
       </h2>
+
+      <div class="contact-grid">
+
+        <div>
+          <span class="contact-label">EMAIL</span>
+
+          <a href="mailto:ttruongsinh2110@gmail.com">
+            ttruongsinh2110@gmail.com
+          </a>
+        </div>
+
+        <div>
+          <span class="contact-label">PHONE</span>
+
+          <a href="tel:+84376348636">
+            +84 376 348 636
+          </a>
+        </div>
+
+        <div>
+          <span class="contact-label">BASED IN</span>
+
+          <p>Da Lat, Vietnam</p>
+        </div>
+
+      </div>
+
     </section>
-
-
-    <footer id="contact">
-      <p>Let's create something meaningful.</p>
-      <p>© 2026 Cao Truong Sinh</p>
-    </footer>
 
   </main>
 
-</body>
 
+  <!-- FOOTER -->
+  <footer>
+
+    <p>© 2026 Cao Truong Sinh</p>
+
+    <a href="#">Back to top ↑</a>
+
+  </footer>
+
+
+  <script src="script.js"></script>
+
+</body>
 </html>
