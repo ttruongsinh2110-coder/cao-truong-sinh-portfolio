@@ -1,0 +1,234 @@
+/* ---------- RESET ---------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f3f1eb;
+  color: #161616;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0 4vw;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* ---------- HEADER ---------- */
+
+header {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #bdbbb5;
+}
+
+.logo {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+nav {
+  display: flex;
+  gap: 36px;
+}
+
+nav a {
+  font-size: 0.85rem;
+  transition: opacity 0.3s ease;
+}
+
+nav a:hover {
+  opacity: 0.45;
+}
+
+
+/* ---------- HERO ---------- */
+
+.hero {
+  min-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 60px 0 45px;
+}
+
+.eyebrow {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.hero h1 {
+  font-size: clamp(4rem, 9.5vw, 10rem);
+  line-height: 0.83;
+  letter-spacing: -0.07em;
+  font-weight: 700;
+  max-width: 1400px;
+}
+
+.hero-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 0.85rem;
+}
+
+.hero-bottom a {
+  border-bottom: 1px solid #161616;
+  padding-bottom: 4px;
+}
+
+
+/* ---------- WORK ---------- */
+
+.work {
+  padding: 140px 0;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #161616;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.project {
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  align-items: center;
+  padding: 45px 0;
+  border-bottom: 1px solid #bdbbb5;
+}
+
+.project > p:first-child {
+  font-size: 0.75rem;
+}
+
+.project h2 {
+  font-size: clamp(2.2rem, 5vw, 5.5rem);
+  letter-spacing: -0.055em;
+  font-weight: 500;
+}
+
+.project > p:last-child {
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+
+/* ---------- ABOUT ---------- */
+
+.about {
+  padding: 160px 0;
+  border-top: 1px solid #161616;
+}
+
+.about > p {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 50px;
+}
+
+.about h2 {
+  max-width: 1200px;
+  font-size: clamp(2.5rem, 5.5vw, 6rem);
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+  font-weight: 500;
+}
+
+
+/* ---------- FOOTER ---------- */
+
+footer {
+  min-height: 300px;
+  border-top: 1px solid #161616;
+  padding: 50px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+footer p:first-child {
+  font-size: clamp(1.8rem, 4vw, 4rem);
+  letter-spacing: -0.04em;
+}
+
+footer p:last-child {
+  font-size: 0.75rem;
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 700px) {
+
+  body {
+    padding: 0 20px;
+  }
+
+  header {
+    height: 80px;
+  }
+
+  nav {
+    gap: 18px;
+  }
+
+  .hero {
+    min-height: calc(100vh - 80px);
+    padding: 40px 0 30px;
+  }
+
+  .hero h1 {
+    font-size: 15vw;
+    line-height: 0.88;
+  }
+
+  .hero-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .work {
+    padding: 100px 0;
+  }
+
+  .project {
+    grid-template-columns: 35px 1fr;
+    gap: 10px;
+  }
+
+  .project > p:last-child {
+    grid-column: 2;
+    text-align: left;
+    margin-top: 8px;
+  }
+
+  .about {
+    padding: 100px 0;
+  }
+
+  footer {
+    min-height: 240px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
