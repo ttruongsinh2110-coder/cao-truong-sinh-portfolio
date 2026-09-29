@@ -135,7 +135,7 @@ img {
 .site-header nav a {
   position: relative;
 
-  font-size: 10px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: .11em;
 }
@@ -301,7 +301,7 @@ img {
 .section-label {
   margin-bottom: clamp(50px, 6vw, 90px);
 
-  font-size: 9px;
+  font-size: 20px;
   letter-spacing: .18em;
   text-transform: uppercase;
 
@@ -316,7 +316,7 @@ img {
 
   border-bottom: 1px solid var(--ink);
 
-  font-size: 9px;
+  font-size: 20px;
   letter-spacing: .16em;
   text-transform: uppercase;
 }
