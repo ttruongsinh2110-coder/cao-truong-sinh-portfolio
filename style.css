@@ -4,21 +4,21 @@
 ========================================================= */
 
 :root {
-  --ivory: #f2f0e8;
-  --ivory-soft: #f7f5ef;
-  --ink: #171815;
-  --muted: #74766d;
+  --ivory: #f4f3ec;
+  --ivory-soft: #fcfbf9;
+  --ink: #11120f;
+  --muted: #6a6c65;
 
-  --moss: #59634b;
-  --moss-dark: #3f4738;
-  --moss-deep: #30362b;
-  --moss-light: #aeb6a2;
+  --moss: #4a543b;
+  --moss-dark: #2a3022;
+  --moss-deep: #161a12;
+  --moss-light: #9ba68b;
 
-  --line: rgba(23, 24, 21, 0.16);
-  --line-light: rgba(255, 255, 255, 0.18);
+  --line: rgba(17, 18, 15, 0.08);
+  --line-light: rgba(255, 255, 255, 0.12);
 
   --side: clamp(24px, 4.5vw, 76px);
-  --ease: cubic-bezier(.2, .8, .2, 1);
+  --ease: cubic-bezier(.19, 1, .22, 1);
 }
 
 
@@ -111,12 +111,13 @@ img {
 }
 
 .site-header.is-scrolled {
-  background: rgba(242, 240, 232, .76);
+  background: rgba(244, 243, 236, .65);
 
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
 
-  border-bottom-color: var(--line);
+  border-bottom-color: rgba(17, 18, 15, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
 }
 
 .logo {
@@ -184,44 +185,37 @@ img {
   border-bottom: 1px solid var(--line);
 }
 
+@keyframes floatBlobs {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, -50px) scale(1.05); }
+}
+
 .hero::before {
   content: "";
-
   position: absolute;
-
-  width: min(45vw, 650px);
+  width: min(55vw, 750px);
   aspect-ratio: 1;
-
-  right: -12vw;
-  top: -12vw;
-
+  right: -15vw;
+  top: -15vw;
   border-radius: 50%;
-
-  background: rgba(89, 99, 75, .12);
-
-  filter: blur(110px);
-
+  background: radial-gradient(circle, rgba(155, 166, 139, 0.25) 0%, rgba(155, 166, 139, 0) 70%);
+  filter: blur(80px);
   pointer-events: none;
+  animation: floatBlobs 12s infinite alternate ease-in-out;
 }
 
 .hero::after {
   content: "";
-
   position: absolute;
-
-  width: 280px;
-  height: 280px;
-
-  left: 22%;
-  bottom: -160px;
-
+  width: 480px;
+  height: 480px;
+  left: 10%;
+  bottom: -200px;
   border-radius: 50%;
-
-  background: rgba(89, 99, 75, .08);
-
+  background: radial-gradient(circle, rgba(155, 166, 139, 0.2) 0%, rgba(155, 166, 139, 0) 70%);
   filter: blur(80px);
-
   pointer-events: none;
+  animation: floatBlobs 15s infinite alternate-reverse ease-in-out;
 }
 
 .eyebrow {
@@ -272,6 +266,11 @@ img {
   object-fit: contain;
   object-position: center bottom;
   justify-self: center;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
+  transition: transform 0.6s var(--ease);
+}
+.hero-main img:hover {
+  transform: scale(1.02) translateY(-10px);
 }
 
 .hero-bottom {
@@ -350,9 +349,9 @@ img {
 
   background:
     linear-gradient(
-      135deg,
-      var(--moss-dark),
-      var(--moss-deep)
+      145deg,
+      #3a432b 0%,
+      var(--moss-deep) 100%
     );
 
   color: var(--ivory);
@@ -365,19 +364,18 @@ img {
 
   position: absolute;
 
-  width: 500px;
-  height: 500px;
+  width: 600px;
+  height: 600px;
 
   right: -200px;
   bottom: -250px;
 
   border-radius: 50%;
 
-  background: rgba(174, 182, 162, .11);
-
-  filter: blur(100px);
-
+  background: radial-gradient(circle, rgba(155, 166, 139, 0.15) 0%, rgba(155, 166, 139, 0) 70%);
+  filter: blur(80px);
   pointer-events: none;
+  animation: floatBlobs 18s infinite alternate ease-in-out;
 }
 
 .capabilities .section-label {
@@ -1427,6 +1425,29 @@ img {
   color: rgba(242, 240, 232, .55);
 }
 
+.reveal-contact-btn {
+  position: relative;
+  z-index: 2;
+  margin-top: 35px;
+  padding: 14px 28px;
+  border: 1px solid var(--line-light);
+  background: transparent;
+  color: var(--ivory);
+  font-size: 9px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 40px;
+  transition: all 0.4s var(--ease);
+  align-self: flex-start;
+  width: max-content;
+}
+
+.reveal-contact-btn:hover {
+  background: var(--ivory);
+  color: var(--ink);
+}
+
 .contact-details {
   position: relative;
   z-index: 2;
@@ -1442,6 +1463,19 @@ img {
     .8fr;
 
   gap: 30px;
+  
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), visibility 0.6s;
+}
+
+.contact-details.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  visibility: visible;
 }
 
 .contact-details > div {

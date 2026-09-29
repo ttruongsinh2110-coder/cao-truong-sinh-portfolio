@@ -679,4 +679,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
+  /* =========================================================
+     08 — CONTACT REVEAL
+  ========================================================= */
+
+  const contactBtn = document.getElementById("reveal-contact-btn");
+  const contactDetails = document.getElementById("contact-details-content");
+
+  if (contactBtn && contactDetails) {
+    contactBtn.addEventListener("click", () => {
+      const isVisible = contactDetails.classList.contains("is-visible");
+      
+      if (isVisible) {
+        contactDetails.classList.remove("is-visible");
+        contactBtn.textContent = "View Contacts";
+      } else {
+        contactDetails.classList.add("is-visible");
+        contactBtn.textContent = "Hide Contacts";
+      }
+    });
+  }
+
 });
